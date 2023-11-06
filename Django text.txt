@@ -1,0 +1,61 @@
+from news.models import *
+user1 = User.objects.create_user('Vova')
+user1.save()
+
+user2 - User.objects.create_user('Lera')
+user2.save()
+
+a1 = Author.objects.create(user = user1)
+a1.save()
+
+a2 = Author.objects.create(user = user2)
+a2.save()
+
+SP = Category.objects.create (theme = 'SP')
+WE = Category.objects.create (theme = 'WE')
+PO = Category.objects.create (theme = 'PO')
+CU = Category.objects.create (theme = 'CU')
+
+Post1 = Post.objects.create(head = "это первая новость", Text = "Хезболла атакует", position = Post.news, author = Author.objects.get(user = user1), rating = 5)
+Post1.save()
+
+Art1 = (head = "Это первая статья", Text = "Повесть временных лет", position = Post.article, author = Author.objects.get(user = user2), rating = 10)
+Art1.save()
+
+Art2 = (head = "Это вторая статья", Text = "Повесть временных лет,ч.2.", position = Post.article, author = Author.objects.get(user = user2), rating = 7)
+Art2.save()
+
+Post1.post_category.add(PO)
+Art1.post_category.add(CU)
+Art1.post_category.add(PO)
+Art2.post_category.add(CU)
+Art2.post_category.add(PO)
+
+com1 = Comment.objects.create(head=Post1, user=user1, text_comment = 'Это комментарий к 1 новости', rating = 2)
+com1.save()
+com2 = Comment.objects.create(head=Art1, user=user2, text_comment = 'Это комментарий к повести часть 1', rating = 0)
+com2.save()
+com3 = Comment.objects.create(head=Art1, user=user2, text_comment = 'Это второй  комментарий к повести часть 1', rating = 0)
+com3.save()
+com4 = Comment.objects.create(head=Art2, user=user2, text_comment = 'Это комментарий к повести часть 2', rating = 300)
+com4.save()
+
+a1.raiting
+a2.rating
+
+post1.dislike()
+post1.dislike()
+post1.dislike()
+post1.dislike()
+post1.dislike()
+post1.dislike()
+
+a1.update_rating()
+
+best_post = Post.objects.oreder_by('rating').first()
+best_post.author.user.username
+best_post.rating
+best_post.time_in
+best_post.head
+Comment.objects.order_by('rating').first()
+
